@@ -5,14 +5,40 @@ const listaCompleta = document.querySelector('.list-tasks')
 let minhaListaDeItens = [];
 
 function AdicionarNovaTarefa() {
+  const novaTarefa = input.value.trim();
+
+  // Verifica se está vazio
+  if (novaTarefa === "") {
+    exibirAlerta("Digite algo antes de adicionar.", "erro");
+    return;
+  }
+
+  // Verifica se já existe
+  const existe = minhaListaDeItens.some(item => item.tarefa.toLowerCase() === novaTarefa.toLowerCase());
+  if (existe) {
+    exibirAlerta("Essa tarefa já foi adicionada.", "erro");
+    return;
+  }
+
   minhaListaDeItens.push({
-    tarefa: input.value,
+    tarefa: novaTarefa,
     concluida: false
-  })
+  });
 
-  input.value = ''
-
+  input.value = "";
   mostrarTarefas();
+  exibirAlerta("Tarefa adicionada com sucesso!", "sucesso");
+}
+
+function exibirAlerta(mensagem, tipo) {
+  const alerta = document.createElement("div");
+  alerta.textContent = mensagem;
+  alerta.className = `alerta alerta-${tipo}`;
+  document.body.prepend(alerta);
+
+  setTimeout(() => {
+    alerta.remove();
+  }, 3000);
 }
 
 function mostrarTarefas() {
@@ -29,7 +55,12 @@ function mostrarTarefas() {
         `
   })
 
-  listaCompleta.innerHTML = novaLi
+  listaCompleta.innerHTML = novaLi;
+
+  document.querySelectorAll(".task").forEach((el) => {
+  el.classList.add("animar-tarefa");
+});
+
 
   localStorage.setItem('lista', JSON.stringify(minhaListaDeItens))
 
@@ -61,3 +92,37 @@ function recarregarTarefas(){
 
 recarregarTarefas()
 button.addEventListener("click", AdicionarNovaTarefa);
+
+function alternarModo() {
+  document.body.classList.toggle("claro");
+
+  const modoAtual = document.body.classList.contains("claro") ? "claro" : "escuro";
+  localStorage.setItem("modo", modoAtual);
+
+  atualizarIconeTema();
+}
+
+function atualizarIconeTema() {
+  const icone = document.getElementById("icone-tema");
+  const modoAtual = document.body.classList.contains("claro") ? "claro" : "escuro";
+
+  icone.textContent = modoAtual === "claro" ? "🌞" : "🌙";
+}
+
+window.onload = () => {
+  const modoSalvo = localStorage.getItem("modo");
+  if (modoSalvo === "claro") {
+    document.body.classList.add("claro");
+  }
+
+  atualizarIconeTema();
+};
+
+
+// Carrega o modo salvo
+window.onload = () => {
+  const modoSalvo = localStorage.getItem("modo");
+  if (modoSalvo === "claro") {
+    document.body.classList.add("claro");
+  }
+};

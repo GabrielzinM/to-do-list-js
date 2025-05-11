@@ -1,3 +1,26 @@
+
+:root {
+    /* Paleta ESCURA */
+    --color-dark: #121212;
+    --color-dark2: #1F1F1F;
+    --color-dark3: #2C2C2C;
+    --color-white: #EDEDED;
+    --color-purple: #9B5DE5;
+    --color-purple1: #7A37D5;
+    --color-red: #EF476F;
+    --color-red2: #B00020;
+
+    /* Paleta CLARA  */
+    --color-light-bg: #FAFAFA;
+    --color-light-container: #FFFFFF;
+    --color-light-text: #2C2C2C;
+    --color-light-input: #EFEFEF;
+    --color-light-button: #C77DFF;
+    --color-light-button-hover: #9D4EDD;
+    --color-light-error: #FF6B6B;
+}
+
+
 *{
     margin: 0;
     padding: 0;
@@ -6,49 +29,58 @@
     outline: none;
 }
 
+/* Tema ESCURO com nova paleta */
 body {
-    background: url("./assests/img/blackbackground.jpg");
-    
+    background-color: var(--color-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+    color: var(--color-white);
 }
 
 .container {
-    background-color: #363636;
-    width: 500px;
+    background-color: var(--color-dark2);
     border-radius: 10px;
     padding: 20px;
-    /*Centralizar de forma izi*/
-    margin: 100px auto 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+h1 {
+    font-family: 'Lato';
+    color: var(--color-purple);
+    padding: 30px;
 }
 
 .input-task {
     border: none;
-    border-radius: 5px;
-    width: 300px;
-    height: 40px;
-    padding-left: 10px;
-    font-size: 15px;
-    font-weight: 500;
+    background-color: var(--color-dark3);
+    color: var(--color-white);
+    font-size: 1rem;
+    padding: 1rem;
+    width: 20rem;
+    border-radius: 1rem;
 }
 
 .button-ad-task {
+    background-color: var(--color-purple1);
+    color: var(--color-white);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
     border: none;
-    border-radius: 5px;
-    height: 40px;
-    background-color: #4B0082;
-    color: #fff;
-    font-size: 17px;
-    font-weight: 700;
-    padding: 0 15px;
-    float: right;
+    font-size: 1rem;
+    padding: 1rem;
     cursor: pointer;
+    transition: 0.4s;
 }
 
 .button-ad-task:hover {
-    opacity: 0.8;
+    background-color: var(--color-purple);
 }
 
 .button-ad-task:active {
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 .list-tasks {
@@ -58,23 +90,22 @@ body {
 }
 
 .task {
-    background-color: #f2f2f2;
-    box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.2);
-    height: 50px;
+    color: var(--color-white);
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    margin: 15px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: background-color 0.3s ease;
 }
-
 
 img {
     height: 25px;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
 }
 
 .task:hover img {
@@ -82,6 +113,123 @@ img {
 }
 
 .done {
-    background-color: #9370DB;
     text-decoration: line-through;
+    color: #888888;
+}
+
+.alerta {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    z-index: 1000;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    animation: fadeInOut 3s ease-in-out;
+}
+
+.alerta-erro {
+    background-color: var(--color-red);
+    color: #fff;
+}
+
+body.claro .alerta-erro {
+    background-color: var(--color-light-error);
+}
+
+.alerta-sucesso {
+    background-color: var(--color-purple);
+    color: #fff;
+}
+
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes entradaTarefa {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animar-tarefa {
+    animation: entradaTarefa 0.3s ease-out;
+}
+
+.modo-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--color-white);
+    z-index: 1000;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.modo-toggle:hover {
+    transform: scale(1.1);
+}
+
+body.claro .modo-toggle {
+    color: var(--color-light-text);
+}
+
+body.claro {
+    background-color: var(--color-light-bg);
+    color: var(--color-light-text);
+}
+
+body.claro .container {
+    background-color: var(--color-light-container);
+}
+
+body.claro .input-task {
+    background-color: var(--color-light-input);
+    color: var(--color-light-text);
+    border: 1px solid #ccc;
+}
+
+body.claro .button-ad-task {
+    background-color: var(--color-light-button);
+    color: var(--color-light-text);
+}
+
+body.claro .button-ad-task:hover {
+    background-color: var(--color-light-button-hover);
+}
+
+body.claro .task {
+    color: var(--color-light-text);
+}
+
+body.claro .modo-toggle {
+    background-color: var(--color-purple);
+    color: #fff;
+}
+
+* {
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.barra-progresso {
+    width: 100%;
+    background-color: #444;
+    border-radius: 8px;
+    height: 15px;
+    margin-top: 20px;
+    overflow: hidden;
 }

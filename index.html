@@ -14,11 +14,25 @@
 </head>
 
 <body>
+    <h1>Lista de Tarefas</h1>
+    
+    <button class="modo-toggle" onclick="alternarModo()" title="Alternar tema">
+        <span id="icone-tema">🌙</span>
+    </button>
+
+
     <div class="container">
 
         <input class="input-task" type="text" placeholder="Oque tenho que fazer...">
-        
-        <button class="button-ad-task">Adicionar</button>
+
+        <!-- Botão de adicionar tarefa -->
+        <button  onclick="AdicionarNovaTarefa()" class="button-ad-task" title="Clique aqui para adicionar uma nova tarefa">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+            </svg>
+        </button>
 
         <ul class="list-tasks">
 
@@ -31,3 +45,4 @@
 <script src="scripts.js"></script>
 
 </html>
+
